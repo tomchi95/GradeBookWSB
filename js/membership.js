@@ -191,14 +191,6 @@ function validateForm(e) {
 		addErrorMessage('yearOfStudies', 'Proszę wybrać rok studiów.');
 		error = true;
 	}
-	
-	// Sprawdź poprawność kodu pocztowego:
-	if (/^\d{2}-?\d{3}$/.test(zip.value)) {
-		removeErrorMessage('zip');
-	} else {
-			addErrorMessage('zip', 'Proszę wpisać poprawny kod pocztowy.');
-		error = true;
-	}
 
     // Jeśli wystąpił błąd, zapobiegnij akcji domyślnej:
 	if (error) {
@@ -246,7 +238,7 @@ function init() {
 window.onload = function() {
     'use strict';
 
-    
+    init();
 
 	// Funkcja validateForm() obsługuje wysyłkę formularza:
     U.addEvent(U.$('theForm'), 'submit', validateForm);
@@ -260,6 +252,6 @@ window.onload = function() {
 	// Włącz podpowiedź dla pola numeru telefonu:
 	//U.enableTooltips('phone');
 
-    init();
+    
     
 };
