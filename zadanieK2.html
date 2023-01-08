@@ -15,9 +15,9 @@
             <p>Wszystkie pola są wymagane.</p>
             <div class="two"><label for="typeOfStudies">Rodzaj studiów: </label> <select name="typeOfStudies" id="typeOfStudies" required>
                 <option value="">Proszę wybrać rodzaj studiów</option>
-			    <option value="dzienne">Dzienne</option>
-			    <option value="wieczorowe">Wieczorowe</option>
-			    <option value="zaoczne">Zaoczne</option>
+			    <option value="D">Dzienne</option>
+			    <option value="W">Wieczorowe</option>
+			    <option value="Z">Zaoczne</option>
 			</select></div>
 			<div class="two"><label for="FirstName">Imię: </label><input type="text" name="firstName" id="firstName" required></div>
             <div class="two"><label for="LastName">Nazwisko: </label><input type="text" name="lastName" id="lastName" required></div>
@@ -25,11 +25,11 @@
 			<div class="two"><label for="ID">ID: </label><input type="text" name="ID" id="ID" required></div>
             <div class="two"><label for="yearOfStudies">Rok studiów: </label> <select name="year" id="yearOfStudies" required>
                 <option value="">Proszę wybrać rok studiów</option>
-			    <option value="1">I</option>
-			    <option value="2">II</option>
-			    <option value="3">III</option>
-                <option value="4">IV</option>
-			    <option value="5">V</option>
+			    <option value="I rok">I</option>
+			    <option value="II rok">II</option>
+			    <option value="III rok">III</option>
+                <option value="IV rok">IV</option>
+			    <option value="V rok">V</option>
 			</select></div>
             <div class="two"><label for="Subject">Przedmiot: </label> <select name="Subject" id="Subject" required>
 			    <option value="Programowanie Aplikacji Internetowych">Programowanie Aplikacji Internetowych</option>
@@ -41,6 +41,7 @@
             <div class="three"><label for="Homework">Prace domowe: </label><input type="number" name="Homework" id="Homework" min="0" max="100"></div>
             <div class="three"><label for="Present">Obecność: </label><input type="checkbox" name="Present" id="Present" checked></div>
 			<div class="one"><input type="submit" value="Prześlij" id="submit"></div>
+            <div class="one" id="output"></div>
         </fieldset>
     </form>
     <script src="js/utilities.js"></script>
