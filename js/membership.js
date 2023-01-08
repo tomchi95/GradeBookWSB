@@ -122,47 +122,34 @@ window.onload = function() {
 
 */
 
-function process() {
+function downloadcsv(){
     'use strict';
 
-    var output = document.getElementById('output');
-
     var student = {
-        typeOfStudies: typeOfStudies,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        ID: ID,
-        yearOfStudies: yearOfStudies,
-        Test1: Test1,
-        Test2: Test2,
-        Test3: Test3,
-        Homework: Homework,
-        Present: Present,
+        typeOfStudies: typeOfStudies.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        email: email.value,
+        ID: ID.value,
+        yearOfStudies: yearOfStudies.value,
+        Test1: Test1.value,
+        Test2: Test2.value,
+        Test3: Test3.value,
+        Homework: Homework.value,
+        Present: Present.value,
     };
 
-    var studentMessage = "Student studiów " 
+    const myArray = Object.entries(student);
+    let csvContent = "data:text/csv;charset=utf-8," + myArray.map(e => e.join(",")).join("\n");
 
-    switch (student.typeOfStudies.value){
-        case 'D':
-            studentMessage += "dziennych - ";
-            break;
-        case 'W':
-            studentMessage += "wieczorowych - ";
-            break;
-        case 'Z':
-            studentMessage += "zaocznych - ";
-            break;
-    };
-        
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "my_data.csv");
+    document.body.appendChild(link); // Required for FF
     
-    studentMessage += student.firstName.value + " " + student.lastName.value + " (" + student.yearOfStudies.value + ") o ID: " + student.ID.value;
-    studentMessage += "otrzymał z testu pierwszego: " + student.Test1.value + " punktów, z testu drugiego: " + student.Test2.value + " punktów, z testu trzeciego: ";
-    studentMessage += student.Test3.value + " punktów, z prac domowych: " + student.Homework.value + " punktów - co daje średnią: ";
-
-    output.innerHTML = studentMessage;
-
-    }
+    link.click();
+}
 
 function validateForm(e) {
     'use strict';
@@ -176,24 +163,15 @@ function validateForm(e) {
 	var lastName = U.$('lastName');
 	var email = U.$('email');
 	var ID = U.$('ID');
-	//var city = U.$('city');
 	var yearOfStudies = U.$('yearOfStudies');
-	//var zip = U.$('zip');
-	//var terms = U.$('terms');
     var Test1 = U.$('Test1');
     var Test2 = U.$('Test2');
     var Test3 = U.$('Test3');
     var Homework = U.$('Homework');
     var Present = U.$('Present');
 
-
-    
-
-
-
 	// Zmienna błędu:
 	var error = false;
-
 
     // Sprawdź poprawność rodzaju studiów:
 	if (typeOfStudies.selectedIndex != 0) {
@@ -291,11 +269,31 @@ function validateForm(e) {
 	        e.preventDefault();
 	    } else {
 	        e.returnValue = false;
+            return false;
 	    }
-	    return false;
-    
-	}
-    
+	} else U.$('download').disabled = false;
+
+    var output2 = U.$('output2');
+    //var output2 = document.getElementById('output2');
+    var studentMessage = "Student studiów "
+    switch (typeOfStudies.value){
+        case 'Dzienne':
+            studentMessage += "dziennych - ";
+            break;
+        case 'Wieczorowe':
+            studentMessage += "wieczorowych - ";
+            break;
+        case 'Zaoczne':
+            studentMessage += "zaocznych - ";
+            break;
+    }
+    studentMessage += firstName.value + " " + lastName.value + " (" + yearOfStudies.value + ") o ID: " + ID.value
+    studentMessage += "otrzymał z testu pierwszego: " + Test1.value + " punktów, z testu drugiego: " + Test2.value + " punktów, z testu trzeciego: "
+    studentMessage += Test3.value + " punktów, z prac domowych: " + Homework.value + " punktów - co daje średnią: "
+
+    output2.textContent = studentMessage
+
+    return false;
 } // Koniec funkcji validateForm().
 
 // Funkcja wywoływana w momencie zmiany opcji.
@@ -304,13 +302,13 @@ function toggleSubmit() {
 	'use strict';
     
 	// Pobierz referencję do przycisku wysyłki:
-	var submit = U.$('submit');
+	var download = U.$('download');
 	
 	// Zmień wartość właściwości disabled:
-	if (U.$('terms').checked) {
-		submit.disabled = false;
+	if (U.$('submit').checked) {
+		download.disabled = false;
 	} else {
-		submit.disabled = true;
+		download.disabled = true;
 	}
 	
 } // Koniec funkcji toggleSubmit().
@@ -330,18 +328,19 @@ window.onload = function() {
     'use strict';
 
     init();
-    document.getElementById('theForm').onsubmit = process;
+    //document.getElementById('theForm').onsubmit = process;
+    document.getElementById('download').onclick = downloadcsv;
 
 	// Funkcja validateForm() obsługuje wysyłkę formularza:
-    U.addEvent(U.$('theForm'), 'submit', validateForm);
+    //U.addEvent(U.$('theForm'), 'submit', validateForm);
 
-    //document.getElementById('theForm').onsubmit = process;
+    document.getElementById('theForm').onsubmit = validateForm;
 
-	// Wyłącz przycisk wysyłki na początku wypełniania:
-	//U.$('submit').disabled = true;
+	// Wyłącz przycisk pobrania na początku wypełniania:
+	U.$('download').disabled = true;
 
 	// Sprawdzaj zmiany pola opcji:
-    U.addEvent(U.$('terms'), 'change', toggleSubmit);
+    //U.addEvent(U.$('terms'), 'change', toggleSubmit);
 
 	// Włącz podpowiedź dla pola numeru telefonu:
 	//U.enableTooltips('phone');

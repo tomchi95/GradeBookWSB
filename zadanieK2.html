@@ -15,9 +15,9 @@
             <p>Wszystkie pola są wymagane.</p>
             <div class="two"><label for="typeOfStudies">Rodzaj studiów: </label> <select name="typeOfStudies" id="typeOfStudies" required>
                 <option value="">Proszę wybrać rodzaj studiów</option>
-			    <option value="D">Dzienne</option>
-			    <option value="W">Wieczorowe</option>
-			    <option value="Z">Zaoczne</option>
+			    <option value="Dzienne">Dzienne</option>
+			    <option value="Wieczorowe">Wieczorowe</option>
+			    <option value="Zaoczne">Zaoczne</option>
 			</select></div>
 			<div class="two"><label for="FirstName">Imię: </label><input type="text" name="firstName" id="firstName" required></div>
             <div class="two"><label for="LastName">Nazwisko: </label><input type="text" name="lastName" id="lastName" required></div>
@@ -41,8 +41,10 @@
             <div class="three"><label for="Homework">Prace domowe: </label><input type="number" name="Homework" id="Homework" min="0" max="100"></div>
             <div class="three"><label for="Present">Obecność: </label><input type="checkbox" name="Present" id="Present" checked></div>
 			<div class="one"><input type="submit" value="Prześlij" id="submit"></div>
-            <div class="one" id="output"></div>
+            <div class="one"><input type="button" value="Pobierz dane" id="download"></div>
         </fieldset>
+        <div class="one" id="output2"></div>
+        
     </form>
     <script src="js/utilities.js"></script>
     <script src="js/errorMessages.js"></script>
