@@ -139,6 +139,9 @@ function validateForm(e) {
 	var yearOfStudies = U.$('yearOfStudies');
 	//var zip = U.$('zip');
 	//var terms = U.$('terms');
+    var Test1 = U.$('Test1');
+    var Test2 = U.$('Test2');
+    var Test3 = U.$('Test3');
 
 	// Zmienna błędu:
 	var error = false;
@@ -189,6 +192,30 @@ function validateForm(e) {
 		removeErrorMessage('yearOfStudies');
 	} else {
 		addErrorMessage('yearOfStudies', 'Proszę wybrać rok studiów.');
+		error = true;
+	}
+
+    // Sprawdź poprawność punktów z testu pierwszego:
+	if (/^[0-9][0-9]?$|^100$/.test(Test1.value)) {
+		removeErrorMessage('Test1');
+	} else {
+		addErrorMessage('Test1', 'Proszę wybrać liczbę punktów od 0 do 100');
+		error = true;
+	}
+
+    // Sprawdź poprawność punktów z testu drugiego:
+	if (/^[0-9][0-9]?$|^100$/.test(Test2.value)) {
+		removeErrorMessage('Test2');
+	} else {
+		addErrorMessage('Test2', 'Proszę wybrać liczbę punktów od 0 do 100');
+		error = true;
+	}
+
+    // Sprawdź poprawność punktów z testu trzeciego:
+	if (/^[0-9][0-9]?$|^100$/.test(Test3.value)) {
+		removeErrorMessage('Test3');
+	} else {
+		addErrorMessage('Test3', 'Proszę wybrać liczbę punktów od 0 do 100');
 		error = true;
 	}
 
