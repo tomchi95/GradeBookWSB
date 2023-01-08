@@ -51,8 +51,22 @@ div.two label {
 	padding-right: 10px;
 	position: relative;
 }
+div.three label {
+	font-weight:bold;
+	float: left;
+	width: 100px;
+	text-align: right;
+	padding-right: 10px;
+	position: relative;
+}
+
 
 div.two input, div.two select{
+	float: left;
+	width: 150px;
+	text-align: left;
+}
+div.three input, div.three select{
 	float: left;
 	width: 150px;
 	text-align: left;
@@ -62,10 +76,17 @@ div.two select {
 	width: 157px;
 	
 }
+.div.three select {
+	width: 157px;
+	
+}
 
 div.one {
 	text-align: center;
 }
+
+
+
 
 
 

@@ -142,6 +142,8 @@ function validateForm(e) {
     var Test1 = U.$('Test1');
     var Test2 = U.$('Test2');
     var Test3 = U.$('Test3');
+    var Homework = U.$('Homework');
+    var Present = U.$('Present');
 
 	// Zmienna błędu:
 	var error = false;
@@ -218,6 +220,22 @@ function validateForm(e) {
 		addErrorMessage('Test3', 'Proszę wybrać liczbę punktów od 0 do 100');
 		error = true;
 	}
+
+    // Sprawdź poprawność punktów zadań domowych:
+    if (/^[0-9][0-9]?$|^100$/.test(Homework.value)) {
+        removeErrorMessage('Homework');
+    } else {
+        addErrorMessage('Homework', 'Proszę wybrać liczbę punktów od 0 do 100');
+        error = true;
+    }
+
+    // Sprawdź poprawność obecności:
+    if (Present.checked) {
+        removeErrorMessage('Present');
+    } else {
+        addErrorMessage('Present', 'Uczeń ma być obecny');
+        error = true;
+    }
 
     // Jeśli wystąpił błąd, zapobiegnij akcji domyślnej:
 	if (error) {
