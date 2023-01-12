@@ -1,54 +1,19 @@
 
 
 // membership.js #2
-// Ten skrypt wylicza koszt członkostwa.
+// Ten skrypt ma wiele zastosowań
 
 // Funkcja wywoływana w momencie wysyłania formularza.
-// Funkcja wykonuje obliczenia i zwraca wartość false.
-/* function setText(elementId, message) {
-    'use strict';
-    
-    var today = new Date();
-    var message = today.toLocaleDateString() + ' ' + today.getHours() + ':' + today.getMinutes();
+// Funkcja wykonuje obliczenia, wyświetla na stronie i zwraca wartość false.
 
-
-    if ( (typeof elementId == 'string')
-    && (typeof message == 'string') ) {
-    
-        // Pobierz referencję do akapitu:
-        var output = document.getElementById('dateToday');
-    
-        // Uaktualnij właściwość innerText lub textContent akapitu:
-		if (output.textContent !== undefined) {
-			output.textContent = message;
-		} else {
-			output.innerText = message;
-		}
-    
-    } // Koniec IF.
-
-}
-*/
-/*
-
-function init() {
-    'use strict';
-    
-    var today = new Date();
-    var message = today.toLocaleDateString() + ' ' + today.getHours() + ':' + today.getMinutes();
-
-    // Uaktulnij kod strony:
-    document.getElementById('dateToday').value = message;
-    
-}
-/*
+    /*
 function calculate(e) {
     'use strict';
 
     // Pobierz obiekt zdarzenia:
     if (typeof e == 'undefined') e = window.event;
 
-    // Zmienna przechowująca łączny koszt:
+    //Zmienna przechowująca łączny koszt:
     var cost;
 
     // Pobierz referencję do pól formularza:
@@ -62,7 +27,7 @@ function calculate(e) {
     
     // Sprawdź poprawność daty:
    if (type && type.value && years && (years > 0) ) {
-        
+
         // Oblicz koszt bazowy:
         switch (type.value) {
             case 'basic':
@@ -105,13 +70,8 @@ function calculate(e) {
     return false;
         
 } // Koniec funkcji calculate().
-*/
 
-
-/*
 window.onload = init();
-
-
 
 window.onload = function() {
     'use strict';
@@ -122,7 +82,9 @@ window.onload = function() {
 
 */
 
-function downloadcsv(){
+
+
+function downloadcsv() {
     'use strict';
 
     var student = {
@@ -137,6 +99,7 @@ function downloadcsv(){
         Test3: Test3.value,
         Homework: Homework.value,
         Present: Present.value,
+        Average: Average.value,
     };
 
     const myArray = Object.entries(student);
@@ -169,6 +132,8 @@ function validateForm(e) {
     var Test3 = U.$('Test3');
     var Homework = U.$('Homework');
     var Present = U.$('Present');
+    var Average= U.$('Average');
+
 
 	// Zmienna błędu:
 	var error = false;
@@ -273,8 +238,21 @@ function validateForm(e) {
 	    }
 	} else U.$('download').disabled = false;
 
+    // Przekształca wartości tekstowe na liczbowe
+    var t1=parseInt(Test1.value);
+    var t2=parseInt(Test2.value);
+    var t3=parseInt(Test3.value);
+    var h=parseInt(Homework.value);
+
+    // Dokonuje obliczenia średniej
+    var avg = (t1+t2+t3+h)/4;
+
+    // Wyświetla wyniki na stronie
+    document.getElementById('Average').value = avg;
+
+
+    // Ustalenie wartosci zmiennej studentMessage i wyswietlenie na stronie
     var output2 = U.$('output2');
-    //var output2 = document.getElementById('output2');
     var studentMessage = "Student studiów "
     switch (typeOfStudies.value){
         case 'Dzienne':
@@ -289,9 +267,9 @@ function validateForm(e) {
     }
     studentMessage += firstName.value + " " + lastName.value + " (" + yearOfStudies.value + ") o ID: " + ID.value
     studentMessage += "otrzymał z testu pierwszego: " + Test1.value + " punktów, z testu drugiego: " + Test2.value + " punktów, z testu trzeciego: "
-    studentMessage += Test3.value + " punktów, z prac domowych: " + Homework.value + " punktów - co daje średnią: "
+    studentMessage += Test3.value + " punktów, z prac domowych: " + Homework.value + " punktów - co daje średnią: " + avg;
 
-    output2.textContent = studentMessage
+    output2.textContent = studentMessage;
 
     return false;
 } // Koniec funkcji validateForm().
