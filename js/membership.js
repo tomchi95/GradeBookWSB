@@ -81,8 +81,8 @@ window.onload = function() {
 };
 
 */
-
-
+var lista= "Wpisy w dzienniku: ";
+var tasks= [];
 
 function downloadcsv() {
     'use strict';
@@ -102,8 +102,8 @@ function downloadcsv() {
         Average: Average.value,
     };
 
-    const myArray = Object.entries(student);
-    let csvContent = "data:text/csv;charset=utf-8," + myArray.map(e => e.join(",")).join("\n");
+    const myArray = Object.entries(tasks);
+    let csvContent = "data:text/csv;charset=utf-8," + myArray.map(e => e.join(","));
 
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
@@ -226,6 +226,54 @@ function validateForm(e) {
         error = true;
     }
 
+    
+
+    // Przekształca wartości tekstowe na liczbowe
+
+    
+    var t1=parseInt(Test1.value);
+    var t2=parseInt(Test2.value);
+    var t3=parseInt(Test3.value);
+    var h=parseInt(Homework.value);
+
+    var average= (0.8*((t1+t2+t3)/3))+(0.1*(h))+(0.1*(100));
+    // Dokonuje obliczenia średniej
+    //var avg = (t1+t2+t3+h)/4;
+
+    var avg2f = average.toFixed(2);
+    // Wyświetla wyniki na stronie
+    document.getElementById('Average').value = avg2f;
+
+    if (avg2f >= 90.00){
+        var literka = "A";
+    } else if (avg2f < 90.00 && avg2f >= 80.00) {
+        var literka = "B";
+    } else if (avg2f < 80.00 && avg2f >= 70.00) {
+        var literka = "C";
+    } else if (avg2f < 80.00 && avg2f >= 70.00) {
+        var literka = "D";
+    } else { var literka = "F"};
+
+    switch(literka){
+        case 'A':
+            var czyZdane = "Zdane";
+            break;
+        case 'B':
+            var czyZdane = "Zdane";
+            break;
+        case 'C':
+            var czyZdane = "Zdane";
+            break;
+        case 'D':
+            var czyZdane = "NIE Zdane";
+            break;
+        case 'F':
+            var czyZdane = "NIE Zdane";
+            break;
+    }
+    // Ustalenie wartosci zmiennej studentMessage i wyswietlenie na stronie
+    
+
     // Jeśli wystąpił błąd, zapobiegnij akcji domyślnej:
 	if (error) {
 
@@ -234,43 +282,34 @@ function validateForm(e) {
 	        e.preventDefault();
 	    } else {
 	        e.returnValue = false;
-            return false;
 	    }
-	} else U.$('download').disabled = false;
+	} else {
+        //włącz przycisk download
+        U.$('download').disabled = false;
+        output2.innerHTML = lista;
+        var studentMessage = "</br>"+" Student studiów ";
+        switch (typeOfStudies.value){
+            case 'Dzienne':
+                studentMessage += "dziennych - ";
+                break;
+            case 'Wieczorowe':
+                studentMessage += "wieczorowych - ";
+                break;
+            case 'Zaoczne':
+                studentMessage += "zaocznych - ";
+                break;
+        };
+        studentMessage += firstName.value + " " + lastName.value + " (" + yearOfStudies.value + ") o ID: " + ID.value
+        studentMessage += "otrzymał z testu pierwszego: " + Test1.value + " punktów, z testu drugiego: " + Test2.value + " punktów, z testu trzeciego: "
+        studentMessage += Test3.value + " punktów, z prac domowych: " + Homework.value + " punktów - co daje średnią: " + avg2f + " ocena: " + literka + " " + czyZdane;
 
-    // Przekształca wartości tekstowe na liczbowe
-    var t1=parseInt(Test1.value);
-    var t2=parseInt(Test2.value);
-    var t3=parseInt(Test3.value);
-    var h=parseInt(Homework.value);
-
-    // Dokonuje obliczenia średniej
-    var avg = (t1+t2+t3+h)/4;
-
-    // Wyświetla wyniki na stronie
-    document.getElementById('Average').value = avg;
-
-
-    // Ustalenie wartosci zmiennej studentMessage i wyswietlenie na stronie
-    var output2 = U.$('output2');
-    var studentMessage = "Student studiów "
-    switch (typeOfStudies.value){
-        case 'Dzienne':
-            studentMessage += "dziennych - ";
-            break;
-        case 'Wieczorowe':
-            studentMessage += "wieczorowych - ";
-            break;
-        case 'Zaoczne':
-            studentMessage += "zaocznych - ";
-            break;
+        //wyswietl student message
+        tasks.push(studentMessage);
+        for (var j = 0, count = tasks.length; j < count; j++) {
+            lista += '<li>' + tasks[j] + '</li>';
+        }
+        output3.innerHTML = tasks;
     }
-    studentMessage += firstName.value + " " + lastName.value + " (" + yearOfStudies.value + ") o ID: " + ID.value
-    studentMessage += "otrzymał z testu pierwszego: " + Test1.value + " punktów, z testu drugiego: " + Test2.value + " punktów, z testu trzeciego: "
-    studentMessage += Test3.value + " punktów, z prac domowych: " + Homework.value + " punktów - co daje średnią: " + avg;
-
-    output2.textContent = studentMessage;
-
     return false;
 } // Koniec funkcji validateForm().
 
@@ -326,3 +365,49 @@ window.onload = function() {
     
     
 };
+
+
+/*
+//confirm('Wyswietla okienko ktore ma 2 przyciski: OK i anuluj')
+//      (function(){
+            //to jest funkcja ktora wykonuje sie na poczatku strony, anonimowa
+//      })
+
+
+//event listener na wykrycie jaki klawisz zostal wcisniety
+
+window.addEventListener('keydown', function(e){
+    this.document.querySelector('p').innerHTML = `'You pressed $(e.key)'`;
+});
+
+
+
+
+function doWhichKey(e){
+    e = e || window.event;
+    let charCode = e.keyCode || e.doWhichKey
+    return String.
+}
+
+windows.addEventListener('keypress',function(e){
+    console.log("You pressed " + doWhichKey(e));
+}, false);
+
+
+
+
+
+
+
+zdaje
+A <100-90>
+B (90-80>
+C (80-70>
+
+niezdaje
+D (70-60>
+F 60-0
+
+//prawym przyciskiem myszy mamy quit i save --- zadanie na 5
+
+*/
