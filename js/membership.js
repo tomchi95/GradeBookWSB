@@ -2,6 +2,10 @@
 var lista= "Wpisy w dzienniku: ";
 var tasks= [];
 
+function reset(){
+    document.getElementById("theForm").reset();
+}
+
 
 function doWhichKey(e){
     e = e || window.event;
@@ -207,6 +211,8 @@ function validateForm(e) {
 	} else {
         //włącz przycisk download
         U.$('download').disabled = false;
+        U.$('RCdownload').disabled = false;
+        document.getElementById('RCdownload').onclick = downloadcsv;
 
         // Ustalenie wartosci zmiennej studentMessage i wyswietlenie na stronie
         var studentMessage = "Student studiów ";
@@ -243,12 +249,15 @@ function toggleSubmit() {
     
 	// Pobierz referencję do przycisku wysyłki:
 	var download = U.$('download');
+    var download2 = U.$('RCdownload');
 	
 	// Zmień wartość właściwości disabled:
 	if (U.$('submit').checked) {
 		download.disabled = false;
+        download2.disabled = false;
 	} else {
 		download.disabled = true;
+        download2.disabled = true;
 	}
 	
 } // Koniec funkcji toggleSubmit().
@@ -281,6 +290,7 @@ window.onload = function() {
 
 	// Wyłącz przycisk pobrania na początku wypełniania:
 	U.$('download').disabled = true;
+    U.$('RCdownload').disabled = true;
 
 	// Włącz podpowiedzi dla pól:
     U.enableTooltips('firstName');
@@ -300,8 +310,7 @@ window.onload = function() {
             console.log("You pressed Backspace");
         }
     }, false);
+
+    document.getElementById('quit').onclick = reset;
     
 };
-
-
-//prawym przyciskiem myszy mamy quit i save --- zadanie na 5
