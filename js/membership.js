@@ -2,7 +2,12 @@
 var lista= "Wpisy w dzienniku: ";
 var tasks= [];
 
-function reset(){
+function quit(){
+    window.location.reload();
+} 
+
+
+function clear(){
     document.getElementById("theForm").reset();
 }
 
@@ -311,6 +316,7 @@ window.onload = function() {
         }
     }, false);
 
-    document.getElementById('quit').onclick = reset;
+    document.getElementById('quit').onclick = quit;
+    document.getElementById('clear').onclick = clear;
     
 };
