@@ -1,15 +1,18 @@
+//--- Main functions for Graid Book ----
 
+// Zmienne
 var lista= "Wpisy w dzienniku: ";
 var tasks= [];
 
+// Functions
 function quit(){
     window.location.reload();
-} 
+} // Koniec funkcji quit().
 
 
 function clear(){
     document.getElementById("theForm").reset();
-}
+} // Koniec funkcji clear().
 
 
 function doWhichKey(e){
@@ -26,7 +29,7 @@ function doWhichKey(e){
     else 
     return String.fromCharCode(e.charCode);
     
-}
+} // Koniec funkcji doWhichKey().
 
 
 function downloadcsv() {
@@ -46,7 +49,7 @@ function downloadcsv() {
         link.click();
     } else {  
     }
-} //koniec funkcji downloadcsv().
+} // Koniec funkcji downloadcsv().
 
 
 function validateForm(e) {
@@ -316,6 +319,7 @@ window.onload = function() {
         }
     }, false);
 
+    // Wywołanie funkcji po naciśnięciu przycisku z menu kontekstowego
     document.getElementById('quit').onclick = quit;
     document.getElementById('clear').onclick = clear;
     
