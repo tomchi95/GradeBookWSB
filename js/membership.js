@@ -1,90 +1,27 @@
 
-
-// membership.js #2
-// Ten skrypt ma wiele zastosowań
-
-// Funkcja wywoływana w momencie wysyłania formularza.
-// Funkcja wykonuje obliczenia, wyświetla na stronie i zwraca wartość false.
-
-    /*
-function calculate(e) {
-    'use strict';
-
-    // Pobierz obiekt zdarzenia:
-    if (typeof e == 'undefined') e = window.event;
-
-    //Zmienna przechowująca łączny koszt:
-    var cost;
-
-    // Pobierz referencję do pól formularza:
-    var type = U.$('type');
-    var years = U.$('years');
-    
-    // Zamień rok na liczbę:
-    if (years && years.value) {
-        years = parseInt(years.value);
-    }
-    
-    // Sprawdź poprawność daty:
-   if (type && type.value && years && (years > 0) ) {
-
-        // Oblicz koszt bazowy:
-        switch (type.value) {
-            case 'basic':
-                cost = 10.00;
-                break;
-            case 'premium':
-                cost = 15.00;
-                break;
-            case 'gold':
-                cost = 20.00;
-                break;
-            case 'platinum':
-                cost = 25.00;
-                break;
-        } // Koniec instrukcji switch.
-
-        // Weź pod uwagę liczbę lat:
-        cost *= years;
-
-        // Zastosuj zniżkę dla składni na więcej niż rok:
-        if (years > 1) {
-            cost *= .80; // 80%
-        }
-        
-        // Wyświetl łączną kwotę:
-        U.$('cost').value = '$' + cost.toFixed(2);
-        
-    } else { // Wyświetl błąd:
-        if (e.type == 'submit') {
-           U.$('cost').value = 'Proszę wprowadzić poprawne dane.';
-        }
-    }
-
-    // Zapobiegnij wysłaniu formularza:
-    if (e.preventDefault) {
-        e.preventDefault();
-    } else {
-        e.returnValue = false;
-    }
-    return false;
-        
-} // Koniec funkcji calculate().
-
-window.onload = init();
-
-window.onload = function() {
-    'use strict';
-    U.addEvent(U.$('theForm'), 'submit', calculate);
-    U.addEvent(U.$('type'), 'change', calculate);
-    U.addEvent(U.$('years'), 'change', calculate);
-};
-
-*/
 var lista= "Wpisy w dzienniku: ";
 var tasks= [];
 
+
+function doWhichKey(e){
+    e = e || window.event;
+    let charCode = e.keyCode || e.doWhichKey
+    if (charCode == 13)
+        return "Enter"
+    else if (charCode == 32)
+        return "Space"
+    else if (charCode == 8 || charCode == 46)
+        return "Backspace/Delete"
+    else if (charCode === "Backspace")
+    return "Backspace/Delete"
+    else 
+    return String.fromCharCode(e.charCode);
+    
+}
+
+
 function downloadcsv() {
+    // Funkcja służąca do pobrania listy w postaci pliku csv.
     'use strict';
 
     var student = {
@@ -103,7 +40,7 @@ function downloadcsv() {
     };
 
     const myArray = Object.entries(tasks);
-    let csvContent = "data:text/csv;charset=utf-8," + myArray.map(e => e.join(","));
+    let csvContent = "data:text/csv;charset=utf-8," + myArray.map(e => e.join(",")).join("\n");
 
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
@@ -112,9 +49,11 @@ function downloadcsv() {
     document.body.appendChild(link); // Required for FF
     
     link.click();
-}
+} //koniec funkcji downloadcsv().
+
 
 function validateForm(e) {
+    // Funkcja służąca do validacji formularze i wyświetlania informacji na stronie
     'use strict';
 
     // Pobierz obiekt zdarzenia:
@@ -226,11 +165,7 @@ function validateForm(e) {
         error = true;
     }
 
-    
-
     // Przekształca wartości tekstowe na liczbowe
-
-    
     var t1=parseInt(Test1.value);
     var t2=parseInt(Test2.value);
     var t3=parseInt(Test3.value);
@@ -271,9 +206,7 @@ function validateForm(e) {
             var czyZdane = "NIE Zdane";
             break;
     }
-    // Ustalenie wartosci zmiennej studentMessage i wyswietlenie na stronie
     
-
     // Jeśli wystąpił błąd, zapobiegnij akcji domyślnej:
 	if (error) {
 
@@ -286,8 +219,9 @@ function validateForm(e) {
 	} else {
         //włącz przycisk download
         U.$('download').disabled = false;
-        output2.innerHTML = lista;
-        var studentMessage = "</br>"+" Student studiów ";
+
+        // Ustalenie wartosci zmiennej studentMessage i wyswietlenie na stronie
+        var studentMessage = "Student studiów ";
         switch (typeOfStudies.value){
             case 'Dzienne':
                 studentMessage += "dziennych - ";
@@ -300,22 +234,23 @@ function validateForm(e) {
                 break;
         };
         studentMessage += firstName.value + " " + lastName.value + " (" + yearOfStudies.value + ") o ID: " + ID.value
-        studentMessage += "otrzymał z testu pierwszego: " + Test1.value + " punktów, z testu drugiego: " + Test2.value + " punktów, z testu trzeciego: "
+        studentMessage += " otrzymał z testu pierwszego: " + Test1.value + " punktów, z testu drugiego: " + Test2.value + " punktów, z testu trzeciego: "
         studentMessage += Test3.value + " punktów, z prac domowych: " + Homework.value + " punktów - co daje średnią: " + avg2f + " ocena: " + literka + " " + czyZdane;
-
+        
+        lista = "Wpisy w dzienniku: ";
         //wyswietl student message
         tasks.push(studentMessage);
         for (var j = 0, count = tasks.length; j < count; j++) {
             lista += '<li>' + tasks[j] + '</li>';
         }
-        output3.innerHTML = tasks;
+        output2.innerHTML = lista;
     }
     return false;
 } // Koniec funkcji validateForm().
 
-// Funkcja wywoływana w momencie zmiany opcji.
-// Funkcja włącza lub wyłącza przycisk wysyłki.
+
 function toggleSubmit() {
+    // Funkcja włącza lub wyłącza przycisk download.
 	'use strict';
     
 	// Pobierz referencję do przycisku wysyłki:
@@ -330,7 +265,9 @@ function toggleSubmit() {
 	
 } // Koniec funkcji toggleSubmit().
 
-function init() {
+
+function DateTimeToday() {
+    //Funkcja wprowadza aktualną datę i godzinę w polu "Dzień wystawienia oceny"
     'use strict';
     
     var today = new Date();
@@ -338,19 +275,22 @@ function init() {
 
     // Uaktulnij kod strony:
     document.getElementById('dateToday').value = message;
-}
+} // Koniec funkcji DateTimeToday()
 
-// Dodaj podstawową funkcjinalność po wczytaniu strony WWW:
+
 window.onload = function() {
+    // Dodaj funkcjinalność po wczytaniu strony WWW:
     'use strict';
 
-    init();
-    //document.getElementById('theForm').onsubmit = process;
+    DateTimeToday();
+    
+    // Po kliknięciu w przycisk download wywołuje funkcję downloadcsv().
     document.getElementById('download').onclick = downloadcsv;
 
 	// Funkcja validateForm() obsługuje wysyłkę formularza:
     //U.addEvent(U.$('theForm'), 'submit', validateForm);
 
+    // Po kliknięciu w przycisk prześlij wywołuje funkcję validateForm().
     document.getElementById('theForm').onsubmit = validateForm;
 
 	// Wyłącz przycisk pobrania na początku wypełniania:
@@ -362,7 +302,18 @@ window.onload = function() {
 	// Włącz podpowiedź dla pola numeru telefonu:
 	//U.enableTooltips('phone');
 
+    // Po naciśnięciu klawiszy wywołuje funkcję doWhichKey(e).
+    addEventListener('keypress', function(e){
+        console.log("You pressed " + doWhichKey(e));
+    }, false);
     
+    // Po puszczeniu przycisku Backspace wywołuje wypisuje w konsoli napis You pressed Backspace
+    addEventListener('keyup', function(e){
+        const key = e.key;
+        if (key === "Backspace") {
+            console.log("You pressed Backspace");
+        }
+    }, false);
     
 };
 
@@ -381,17 +332,6 @@ window.addEventListener('keydown', function(e){
 });
 
 
-
-
-function doWhichKey(e){
-    e = e || window.event;
-    let charCode = e.keyCode || e.doWhichKey
-    return String.
-}
-
-windows.addEventListener('keypress',function(e){
-    console.log("You pressed " + doWhichKey(e));
-}, false);
 
 
 
