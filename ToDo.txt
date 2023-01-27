@@ -1,1 +1,0 @@
-do projektu trzeba dodać ajax
