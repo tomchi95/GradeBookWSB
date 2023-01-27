@@ -23,32 +23,20 @@ function doWhichKey(e){
 function downloadcsv() {
     // Funkcja służąca do pobrania listy w postaci pliku csv.
     'use strict';
-
-    var student = {
-        typeOfStudies: typeOfStudies.value,
-        firstName: firstName.value,
-        lastName: lastName.value,
-        email: email.value,
-        ID: ID.value,
-        yearOfStudies: yearOfStudies.value,
-        Test1: Test1.value,
-        Test2: Test2.value,
-        Test3: Test3.value,
-        Homework: Homework.value,
-        Present: Present.value,
-        Average: Average.value,
-    };
-
-    const myArray = Object.entries(tasks);
-    let csvContent = "data:text/csv;charset=utf-8," + myArray.map(e => e.join(",")).join("\n");
-
-    var encodedUri = encodeURI(csvContent);
-    var link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "my_data.csv");
-    document.body.appendChild(link); // Required for FF
     
-    link.click();
+    if (confirm('Jeśli chcesz pobrać dane naciśnij przycisk "OK", w przeciwnym przypadku przycisk "Anuluj".') == true) {
+        const myArray = Object.entries(tasks);
+        let csvContent = "data:text/csv;charset=utf-8," + myArray.map(e => e.join(",")).join("\n");
+    
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "my_data.csv");
+        document.body.appendChild(link); // Required for FF
+        
+        link.click();
+    } else {  
+    }
 } //koniec funkcji downloadcsv().
 
 
@@ -282,13 +270,11 @@ window.onload = function() {
     // Dodaj funkcjinalność po wczytaniu strony WWW:
     'use strict';
 
+    //wywołaj funkcję DateTimeToday po załadowaniu strony
     DateTimeToday();
     
     // Po kliknięciu w przycisk download wywołuje funkcję downloadcsv().
     document.getElementById('download').onclick = downloadcsv;
-
-	// Funkcja validateForm() obsługuje wysyłkę formularza:
-    //U.addEvent(U.$('theForm'), 'submit', validateForm);
 
     // Po kliknięciu w przycisk prześlij wywołuje funkcję validateForm().
     document.getElementById('theForm').onsubmit = validateForm;
@@ -296,11 +282,11 @@ window.onload = function() {
 	// Wyłącz przycisk pobrania na początku wypełniania:
 	U.$('download').disabled = true;
 
-	// Sprawdzaj zmiany pola opcji:
-    //U.addEvent(U.$('terms'), 'change', toggleSubmit);
-
-	// Włącz podpowiedź dla pola numeru telefonu:
-	//U.enableTooltips('phone');
+	// Włącz podpowiedzi dla pól:
+    U.enableTooltips('firstName');
+    U.enableTooltips('lastName');
+    U.enableTooltips('email');
+    U.enableTooltips('ID');
 
     // Po naciśnięciu klawiszy wywołuje funkcję doWhichKey(e).
     addEventListener('keypress', function(e){
@@ -318,36 +304,4 @@ window.onload = function() {
 };
 
 
-/*
-//confirm('Wyswietla okienko ktore ma 2 przyciski: OK i anuluj')
-//      (function(){
-            //to jest funkcja ktora wykonuje sie na poczatku strony, anonimowa
-//      })
-
-
-//event listener na wykrycie jaki klawisz zostal wcisniety
-
-window.addEventListener('keydown', function(e){
-    this.document.querySelector('p').innerHTML = `'You pressed $(e.key)'`;
-});
-
-
-
-
-
-
-
-
-
-zdaje
-A <100-90>
-B (90-80>
-C (80-70>
-
-niezdaje
-D (70-60>
-F 60-0
-
 //prawym przyciskiem myszy mamy quit i save --- zadanie na 5
-
-*/

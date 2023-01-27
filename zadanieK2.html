@@ -19,10 +19,10 @@
 			    <option value="Wieczorowe">Wieczorowe</option>
 			    <option value="Zaoczne">Zaoczne</option>
 			</select></div>
-			<div class="two"><label for="FirstName">Imię: </label><input type="text" name="firstName" id="firstName" required></div>
-            <div class="two"><label for="LastName">Nazwisko: </label><input type="text" name="lastName" id="lastName" required></div>
-            <div class="two"><label for="Mail">Adres mailowy: </label><input type="email" id="email" required></div>
-			<div class="two"><label for="ID">ID: </label><input type="text" name="ID" id="ID" required></div>
+			<div class="two"><label for="FirstName">Imię: <span class="tooltip">Powinno zawierać co najmniej 2 znaki.</span></label><input type="text" name="firstName" id="firstName" required></div>
+            <div class="two"><label for="LastName">Nazwisko: <span class="tooltip">Powinno zawierać co najmniej 2 znaki.</span></label><input type="text" name="lastName" id="lastName" required></div>
+            <div class="two"><label for="Mail">Adres mailowy: <span class="tooltip">W formacie X@XX.XX</span></label><input type="email" id="email" required></div>
+			<div class="two"><label for="ID">ID: <span class="tooltip">W formacie XXXXX</span></label><input type="text" name="ID" id="ID" required></div>
             <div class="two"><label for="yearOfStudies">Rok studiów: </label> <select name="year" id="yearOfStudies" required>
                 <option value="">Proszę wybrać rok studiów</option>
 			    <option value="I rok">I</option>
@@ -47,8 +47,13 @@
         <div class="one" id="output2"></div>
         <div id="output3"><ol></ol></div>
     </form>
+    <div id="context-menu">
+        <div class="item">Save</div>
+        <div class="item">Quit</div>
+    </div>
     <script src="js/utilities.js"></script>
     <script src="js/errorMessages.js"></script>
     <script src="js/membership.js"></script>
+    <script src="js/rightClick.js"></script>
 </body>
 </html>
